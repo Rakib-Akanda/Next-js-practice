@@ -2,7 +2,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import AuthProvider from "./authprovider/AuthProvider";
-
+import { Analytics } from "@vercel/analytics/react";
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
   subsets: ["latin"],
@@ -27,7 +27,10 @@ export default function RootLayout({ children }) {
             </div>
           </header>
           <main>
-            <div className=" ">{children}</div>
+            <div>
+              {children}
+              <Analytics />
+            </div>
           </main>
           <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
             <aside className="grid-flow-col items-center">
