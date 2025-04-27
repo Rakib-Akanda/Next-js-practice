@@ -1,3 +1,5 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 const getTime = async () => {
   const res = await fetch("http://localhost:3000/time", {
@@ -10,6 +12,8 @@ const getTime = async () => {
 };
 
 const AboutContent = async () => {
+  const session = await getServerSession(authOptions);
+  console.log({session});
   const currentTime = await getTime();
   return (
     <div>

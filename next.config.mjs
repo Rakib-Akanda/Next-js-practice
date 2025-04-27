@@ -4,7 +4,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "www.themealdb.com", // "*" dile jekuno website theke image nibe
+        // hostname: "www.themealdb.com", // "*" dile jekuno website theke image nibe
+        hostname: "*", // "*" dile jekuno website theke image nibe
         port: "",
         pathname: "/**",
       },

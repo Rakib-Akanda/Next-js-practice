@@ -1,10 +1,14 @@
 "use client";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
   const pathName = usePathname();
   const router = useRouter();
+  const session = useSession();
+  console.log(session);
   //   console.log(pathName);
   const links = [
     {
@@ -74,9 +78,37 @@ const Navbar = () => {
             </Link>
           ))}
         </ul>
-        <button onClick={() => handleLogin()} className="btn">
-          Login
-        </button>
+        {session.status === "authenticated" ? (
+          <button onClick={() => handleLogin()} className="btn">
+            Logout
+          </button>
+        ) : (
+          <button onClick={() => handleLogin()} className="btn">
+            Login
+          </button>
+        )}
+        <div className="flex items-center gap-2">
+          <div>
+            {session?.data?.user?.image ? (
+              <Image
+                src={session.data.user.image}
+                height={40}
+                width={40}
+                className="rounded-full"
+                alt={session.data.user.name || "User"}
+              />
+            ) : (
+              <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                {/* Optional fallback icon or initials */}
+                <span className="text-sm text-white">N/A</span>
+              </div>
+            )}
+          </div>
+          <div>
+            <h6>Name : {session?.data?.user?.name}</h6>
+            <h6>Type : {session?.data?.user?.type}</h6>
+          </div>
+        </div>
       </nav>
     </div>
   );
