@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import AuthProvider from "./authprovider/AuthProvider";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
             <div>
               {children}
               <Analytics />
+              <SpeedInsights />
             </div>
           </main>
           <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">

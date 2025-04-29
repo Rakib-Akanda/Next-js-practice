@@ -1,5 +1,5 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -45,8 +45,7 @@ const Navbar = () => {
     },
   ];
   const handleLogin = () => {
-    router.push("/about");
-    console.log();
+    router.push("/api/auth/signin");
   };
   if (pathName.includes("dashboard")) {
     return (
@@ -79,7 +78,7 @@ const Navbar = () => {
           ))}
         </ul>
         {session.status === "authenticated" ? (
-          <button onClick={() => handleLogin()} className="btn">
+          <button onClick={() => signOut()} className="btn">
             Logout
           </button>
         ) : (
