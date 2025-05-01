@@ -43,6 +43,10 @@ const Navbar = () => {
       title: "Meals",
       path: "/meals",
     },
+    {
+      title: "Signup",
+      path: "/api/auth/signup",
+    },
   ];
   const handleLogin = () => {
     router.push("/api/auth/signin");

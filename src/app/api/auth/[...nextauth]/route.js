@@ -1,5 +1,9 @@
+import connectDB from "@/app/lib/connectDB";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
+import GitHubProvider from "next-auth/providers/github";
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
@@ -34,14 +38,28 @@ export const authOptions = {
         }
         const { email, password } = credentials;
         if (email) {
-          const currentUser = users.find((user) => user.email === email);
-          //   console.log(currentUser);
+          const db = await connectDB();
+          const currentUser = await db.collection("users").findOne({ email });
+          // const currentUser = users.find((user) => user.email === email);
+          console.log(currentUser);
           if (currentUser.password === password) {
             return currentUser;
           }
         }
         return null;
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
   //   pages: {
@@ -63,30 +81,30 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions);
 
-const users = [
-  {
-    id: 1,
-    name: "Rakib",
-    email: "r@gmail.com",
-    type: "admin",
-    password: "password",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 2,
-    name: "Arif",
-    email: "a@gmail.com",
-    type: "admin",
-    password: "password",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 1,
-    name: "Jahidul",
-    email: "j@gmail.com",
-    type: "moderator",
-    password: "password",
-    image: "https://picsum.photos/200/300",
-  },
-];
+// const users = [
+//   {
+//     id: 1,
+//     name: "Rakib",
+//     email: "r@gmail.com",
+//     type: "admin",
+//     password: "password",
+//     image: "https://picsum.photos/200/300",
+//   },
+//   {
+//     id: 2,
+//     name: "Arif",
+//     email: "a@gmail.com",
+//     type: "admin",
+//     password: "password",
+//     image: "https://picsum.photos/200/300",
+//   },
+//   {
+//     id: 1,
+//     name: "Jahidul",
+//     email: "j@gmail.com",
+//     type: "moderator",
+//     password: "password",
+//     image: "https://picsum.photos/200/300",
+//   },
+// ];
 export { handler as GET, handler as POST };
