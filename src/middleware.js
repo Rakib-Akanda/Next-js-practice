@@ -29,7 +29,7 @@ Cookie Secure flag সহ সেট করা হয় (i.e., HTTPS connection onl
 Cookie গুলো HTTPS ছাড়া পাঠানো যাবে না
 এবং cross-site scripting (XSS) attack থেকেও নিরাপদ থাকে কিছুটা
     */
-  console.log("cookies", token);
+  // console.log("cookies", token);
   if (!token) {
     return NextResponse.redirect(new URL("/api/auth/signin", request.url)); //(request.url) die amra je page theke aschi shei page redirect kore dei, ete amader private route kora lage nah helpful onk next.js automatic kore dei private route
   }

@@ -2,7 +2,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 const getTime = async () => {
-  const res = await fetch("http://localhost:3000/time", {
+  const res = await fetch("https://next-js-practice-khaki-pi.vercel.app/time", {
     // next: { revalidate: 5 }, // cache data
     cache: "no-store",
   });
@@ -13,7 +13,7 @@ const getTime = async () => {
 
 const AboutContent = async () => {
   const session = await getServerSession(authOptions);
-  console.log({session});
+  // console.log({session});
   const currentTime = await getTime();
   return (
     <div>

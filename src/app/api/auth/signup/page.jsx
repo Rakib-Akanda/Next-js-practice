@@ -7,7 +7,7 @@ const SignUp = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    const resp = await fetch("http://localhost:3000/api/auth/signup/new-user", {
+    const resp = await fetch("https://next-js-practice-khaki-pi.vercel.app/api/auth/signup/new-user", {
       method: "POST",
       body: JSON.stringify(newUser),
       headers: {
